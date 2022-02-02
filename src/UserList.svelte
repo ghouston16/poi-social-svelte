@@ -1,13 +1,14 @@
 <script>
     //export let userList;
-    import {onMount} from 'svelte'
+    import {getContext, onMount} from 'svelte'
     //import UserList from "./UserList.svelte"
-    import { DonationService } from "./poi-service";
+  //  import { PoiService } from "./poi-service";
   let userList=[];
+
+  const poiService = getContext("PoiService");
   
-  const donationService = new DonationService(`http://127.0.0.1:8000`);
   onMount(async () => {
-    userList = await donationService.getUsers();
+    userList = await poiService.getUsers();
   })
   </script>
   

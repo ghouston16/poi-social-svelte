@@ -1,5 +1,6 @@
-export class DonationService {
+export class PoiService {
   userList = [];
+  poiList = [];
   baseUrl = "";
 
   constructor(baseUrl) {
@@ -13,6 +14,16 @@ export class DonationService {
       return this.userList;
     } catch (error) {
       return [];
+    }
+  }
+  async getPois() {
+    try {
+      const response = await fetch(this.baseUrl + "/pois");
+      this.poiList = await response.json();
+      return this.poiList
+
+    } catch (error) {
+      return []
     }
   }
 }
