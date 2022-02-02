@@ -1,5 +1,5 @@
 <script>
-    import PoiList from "/src/PoiList.svelte";
+    import PoiList from "/src/components/PoiList.svelte";
     import tricolor from "/src/assets/ireland-flag.jpg";
   </script>
   

@@ -1,8 +1,8 @@
 <script>
-  import UserList from "./UserList.svelte"
+  import UserList from "./components/UserList.svelte"
   import { setContext } from "svelte";
   import {PoiService} from "./poi-service";
-  import PoiList from "./PoiList.svelte"
+  import PoiList from "./components/PoiList.svelte"
   import Users from "./pages/Users.svelte";
   import Pois from "./pages/Pois.svelte";
 

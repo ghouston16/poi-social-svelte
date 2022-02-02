@@ -1,5 +1,5 @@
 <script>
-    import UserList from "/src/UserList.svelte";
+    import UserList from "/src/components/UserList.svelte";
     import tricolor from "/src/assets/ireland-flag.jpg";
   </script>
   
