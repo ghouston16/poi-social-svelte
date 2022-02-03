@@ -5,10 +5,12 @@
   import Pois from "./pages/Pois.svelte";
   import Navigator from "./components/Navigator.svelte";
   import Router from "svelte-spa-router";
+import Main from "./pages/Main.svelte";
 
   setContext("PoiService", new PoiService("http://127.0.0.1:8000"));
 
   let routes = {
+    "/": Main,
     "/users": Users,
     "/pois": Pois
   }
