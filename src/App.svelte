@@ -1,11 +1,26 @@
 <script>
-  import UserList from "./UserList.svelte"
+  import { setContext } from "svelte";
+  import {PoiService} from "./poi-service";
+  import Users from "./pages/Users.svelte";
+  import Pois from "./pages/Pois.svelte";
+  import Navigator from "./components/Navigator.svelte";
+  import Router from "svelte-spa-router";
+import Main from "./pages/Main.svelte";
+import Login from "./pages/Login.svelte";
 
-  // Test Users
-  const userList = [{ "email": "test1@api.ie", "password": "secretword"} ,{ "email": "test2@api.ie", "password": "secretword"} ]
+  setContext("PoiService", new PoiService("http://127.0.0.1:8000"));
+
+  let routes = {
+    "/": Main,
+    "/login": Login,
+    "/users": Users,
+    "/pois": Pois,
+    "/logout": Main
+  }
 </script>
 
 <div class="uk-container">
   <h1> POI Client Application </h1>
-  <UserList userList="{userList}"/>
+  <Navigator/>
+  <Router {routes} />
 </div>
