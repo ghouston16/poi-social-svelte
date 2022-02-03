@@ -14,7 +14,8 @@ import Login from "./pages/Login.svelte";
     "/": Main,
     "/login": Login,
     "/users": Users,
-    "/pois": Pois
+    "/pois": Pois,
+    "/logout": Main
   }
 </script>
 

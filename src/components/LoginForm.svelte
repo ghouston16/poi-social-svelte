@@ -1,15 +1,27 @@
 <script>
-    import { push } from "svelte-spa-router";
-  
-    let email = ""
-    let password = "";
-    let errorMessage = "";
-  
-    async function login() {
+  import { push } from "svelte-spa-router";
+  import {getContext} from "svelte";
+  import tricolor from "/src/assets/ireland-flag.jpg"
+  const poiService = getContext("PoiService");
+
+  let email = ""
+  let password = "";
+  let errorMessage = "";
+
+  async function login() {
+    //console.log(email, "+", password);
+    let success = await poiService.login(email, password)
+    if (success) {
       push("/pois");
+    } else {
+      email = "";
+      password = "";
+      errorMessage = "Invalid Credentials";
     }
+  }
   </script>
   
+
   <form on:submit|preventDefault={login}>
     <div class="uk-margin uk-text-left">
       <label class="uk-form-label">Email</label>
