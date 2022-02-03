@@ -1,7 +1,12 @@
 import { writable } from "svelte/store";
 
  // Declare nav bar object 
- export const mainBar = [{
+ export const mainBar = [  {
+    title: "Create",
+    icon: "fas fa-hand-holding-usd fa-3x",
+    colour: "color:rgb(153, 196, 74)",
+    link: "/#/create",
+  },,{
     title: "Pois",
     icon: "fas fa-th-list fa-2x",
     colour: "color:rgb(63, 122, 139)",

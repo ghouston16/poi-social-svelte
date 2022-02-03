@@ -7,6 +7,7 @@
   import Router from "svelte-spa-router";
 import Main from "./pages/Main.svelte";
 import Login from "./pages/Login.svelte";
+import CreatePoi from "./pages/CreatePoi.svelte";
 
   setContext("PoiService", new PoiService("http://127.0.0.1:8000"));
 
@@ -15,6 +16,7 @@ import Login from "./pages/Login.svelte";
     "/login": Login,
     "/users": Users,
     "/pois": Pois,
+    "/create": CreatePoi,
     "/logout": Main
   }
 </script>
