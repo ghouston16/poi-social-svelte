@@ -1,13 +1,13 @@
 <script>
-  import UserList from "./components/UserList.svelte"
   import { setContext } from "svelte";
   import {PoiService} from "./poi-service";
-  import PoiList from "./components/PoiList.svelte"
   import Users from "./pages/Users.svelte";
   import Pois from "./pages/Pois.svelte";
   import Navigator from "./components/Navigator.svelte";
   import Router from "svelte-spa-router";
+
   setContext("PoiService", new PoiService("http://127.0.0.1:8000"));
+
   let routes = {
     "/users": Users,
     "/pois": Pois
