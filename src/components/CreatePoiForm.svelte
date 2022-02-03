@@ -22,7 +22,7 @@
     });
     async function createPoi() {
         const success = await poiService.createPoi(title, description,categories[selectedCategory],lat,lng)
-        
+        console.log(success);
         if (success) {
             push('/pois')
         } else {

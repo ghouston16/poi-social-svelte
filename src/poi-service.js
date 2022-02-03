@@ -1,4 +1,5 @@
 import axios from "axios";
+import { user } from "./stores";
 
 export class PoiService {
   userList = [];
@@ -47,8 +48,9 @@ export class PoiService {
         //const cat = await axios.get(this.baseUrl + '/api/categories')
        // console.log(poi);
        const response = await axios.post(this.baseUrl + "/pois", poi);
+       console.log(response.status)
        // const response = await axios.post(this.baseUrl + "/api/categories/" + category._id + "/pois", poi);
-        return response.status == 200;
+        return response.status == 201;
       } catch (error) {
         return false;
       }
@@ -68,6 +70,7 @@ export class PoiService {
       //console.log(this.params);
       // params and config included in payload
       const response = await axios.post(`${this.baseUrl}/login`, this.params, config);
+      user.set({"email": email, "token":response.data.access_token});
       console.log(response);
       return response.status == 200;
     } catch (error) {
