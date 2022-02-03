@@ -6,11 +6,13 @@
   import Navigator from "./components/Navigator.svelte";
   import Router from "svelte-spa-router";
 import Main from "./pages/Main.svelte";
+import Login from "./pages/Login.svelte";
 
   setContext("PoiService", new PoiService("http://127.0.0.1:8000"));
 
   let routes = {
     "/": Main,
+    "/login": Login,
     "/users": Users,
     "/pois": Pois
   }
