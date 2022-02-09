@@ -1,6 +1,6 @@
 import axios from "axios";
 import { push } from "svelte-spa-router";
-import { user } from "./stores";
+import { user, poi } from "./stores";
 
 export class PoiService {
   userList = [];
@@ -13,6 +13,9 @@ export class PoiService {
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
+    if (localStorage.poi) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + JSON.parse(localStorage.poi);
+    }
   }
 
   async getUsers() {
@@ -90,5 +93,34 @@ export class PoiService {
       return false;
     }
 
+  }
+  async deletePoi(id) {
+    try {
+      const response = await axios.delete(`${this.baseUrl}/pois/${id}`);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+  async updatePoi(name, description, category, lat, lng, image, id) {
+    try {
+      const poiDetails = {
+        name: name,
+        description: description,
+        category: category,
+        lat: lat,
+        lng: lng,
+        id: id
+      };
+
+      console.log(poiDetails);
+      const response = await axios.put(this.baseUrl + "/pois/" + id, poiDetails);
+      const newPoi = await response.data;
+      console.log(response);
+      poi.set(newPoi);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }
