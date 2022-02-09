@@ -4,36 +4,33 @@
     import {push} from 'svelte-spa-router';
     const poiService = getContext("PoiService");
 
-   // let categoryList = [];
+    let categoryList = ["North","South","East","West"];
     let lat = "";
     let lng = "";
     let creator = "";
-    let title = "";
+    let name = "";
     let description = "";
     let selectedMethod = 0;
     let selectedCategory = 0;
     let categories = ["North", "South", "East", "West"];
     let errorMessage = "";
-
+    let category = "";
+    let title = "";
+    let image = "";
     //let creator = ""
+    let map;
 
     onMount(async () => {
-       
     });
     async function createPoi() {
-        const success = await poiService.createPoi(title, description,categories[selectedCategory],lat,lng)
-        console.log(success);
+        const success = await poiService.createPoi(title, description,category,lat,lng)
+        
         if (success) {
             push('/pois')
         } else {
             errorMessage = "Poi not completed - some error occurred";
         }
     }
-  /*  function justAdded(name, description, category, lat, long, creator, image) {
-        map.addMarker({lat: lat, lng: long});
-        map.moveTo(12, {lat: lat, lng: long}) 
-            }
-    */
 </script>
 
 <form on:submit|preventDefault={createPoi} class="uk-form-stacked uk-text-left">
@@ -80,7 +77,7 @@
                         class="uk-input"
                         id="form-stacked-text"
                         type="string"
-                        name="lat"
+                        name="long"
                         placeholder="Latitude"
                     />
                 </div>
@@ -99,25 +96,19 @@
                         placeholder="Longitude"
                     />
                 </div>
-                
-            </div>
         <div class=" uk-width-1-2@m">
             <div class="uk-margin uk-text-left">
                 <div class="uk-form-label">Select Category</div>
                 <div class="uk-form-controls ">
-                    {#each categories as category, i}
                         <label>
                             <input
-                                bind:group={selectedCategory}
-                                value={i}
-                                class="uk-radio"
-                                type="radio"
+                                bind:value={category}
+                                class="uk-input"
+                                type="string"
                                 name="category"
                             />
-                            {category}
+                    
                         </label>
-                        <br />
-                    {/each}
                 </div>
             </div>
             <div class=" uk-width-1@m">
