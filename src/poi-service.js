@@ -1,4 +1,5 @@
 import axios from "axios";
+import { user } from "./stores";
 
 export class PoiService {
   userList = [];
@@ -33,8 +34,31 @@ export class PoiService {
       return []
     }
   }
+
+  async createPoi(title, description, category, lat, long) {
+      try {
+       // const creator = 
+        const poi = {
+          title: title,
+          description: description,
+          category: category,
+          lat: lat,
+          lng: long,
+        };
+        //const cat = await axios.get(this.baseUrl + '/api/categories')
+       // console.log(poi);
+       const response = await axios.post(this.baseUrl + "/pois", poi);
+       console.log(response.status)
+       // const response = await axios.post(this.baseUrl + "/api/categories/" + category._id + "/pois", poi);
+        return response.status == 201;
+      } catch (error) {
+        return false;
+      }
+    }
+  
+
   async login(email, password) {
-    // Configure headers for request
+    // Configure headers for request - https://gist.github.com/akexorcist/ea93ee47d39cf94e77802bc39c46589b
     let config = {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -46,6 +70,7 @@ export class PoiService {
       //console.log(this.params);
       // params and config included in payload
       const response = await axios.post(`${this.baseUrl}/login`, this.params, config);
+      user.set({"email": email, "token":response.data.access_token});
       console.log(response);
       return response.status == 200;
     } catch (error) {
