@@ -2,10 +2,10 @@ import { writable } from "svelte/store";
 
  // Declare nav bar object 
  export const mainBar = [{
-    title: "Pois",
-    icon: "fas fa-th-list fa-2x",
-    colour: "color:rgb(63, 122, 139)",
-    link: "/#/pois",
+    title: "Create",
+    icon: "fas fa-map-marker-alt fa-2x",
+    colour: "color:rgb(153, 196, 74)",
+    link: "/#/create",
   }, {
     title: "Users",
     icon: "fas fa-user fa-2x",
@@ -39,4 +39,8 @@ export const welcomeBar = [
   });
   export const title = writable("");
   export const subTitle = writable("");
+  export const user = writable({
+    email: "",
+    token: "",
+  });
     
