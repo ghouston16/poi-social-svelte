@@ -1,6 +1,7 @@
 <script>
   import { getContext, onMount } from "svelte";
 import { push } from "svelte-spa-router";
+import { poi } from "../stores"
 
   const poiService = getContext("PoiService");
   let poiList = [];
@@ -21,7 +22,16 @@ import { push } from "svelte-spa-router";
     }
   }
   async function updatePoi(poiId) {
-    console.log(poiId);
+    console.log(poiId); 
+  const candidatePoi = await poiService.getPoiById(poiId);
+  poi.set(candidatePoi)
+  console.log(poi)
+  let success= await poiService.getPoiById(poiId)
+  if (success){
+    push('/update')
+    //console.log(success.data)
+    //poi.set(success.data)
+  }
   }
 
   async function viewPoi(poiId) {

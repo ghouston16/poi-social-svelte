@@ -1,11 +1,13 @@
 import axios from "axios";
 import { push } from "svelte-spa-router";
+import { intros } from "svelte/internal";
 import { user, poi } from "./stores";
 
 export class PoiService {
   userList = [];
   poiList = [];
   baseUrl = "";
+  
 
   // Encoded form data needed to match api 
   // https://gist.github.com/akexorcist/ea93ee47d39cf94e77802bc39c46589b
@@ -119,10 +121,10 @@ export class PoiService {
       return false;
     }
   }
-  async updatePoi(name, description, category, lat, lng, image, id) {
+  async updatePoi(title, description, category, lat, lng, id) {
     try {
       const poiDetails = {
-        name: name,
+        title: title,
         description: description,
         category: category,
         lat: lat,
@@ -140,4 +142,16 @@ export class PoiService {
       return false;
     }
   }
+  async getPoiById(id) {
+    try {
+      const response = await axios.get(`${this.baseUrl}/pois/${id}`)
+      //console.log(response)
+      const poi = await response.data;
+      //console.log(poi)
+      return poi;
+    } catch (error) {
+      return null;
+    }
+  }
+  
 }

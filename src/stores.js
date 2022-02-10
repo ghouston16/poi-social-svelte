@@ -51,7 +51,8 @@ export const user = writable({
   token: "",
 });
 export const poi = writable({
-  name: "",
+  id: "",
+  title: "",
   description: "",
   category: "",
   lat: "",
