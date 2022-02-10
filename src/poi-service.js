@@ -71,7 +71,24 @@ export class PoiService {
       return false;
     }
   }
-
+  
+    // Sign Up
+    async signup(email, password) {
+      try {
+        const storedPassword = password;
+        const userDetails = {
+          email: email,
+          password:  password //hash,
+        };
+        console.log(userDetails);
+        const response = await axios.post(this.baseUrl + "/users", userDetails);
+        const newUser = await response.data;
+        user.set(newUser);
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
   
 
   async createPoi(title, description, category, lat, lng) {

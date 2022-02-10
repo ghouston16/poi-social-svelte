@@ -8,6 +8,7 @@
 import Main from "./pages/Main.svelte";
 import Login from "./pages/Login.svelte";
 import Create from "./pages/Create.svelte";
+import Signup from "./pages/Signup.svelte";
 
   setContext("PoiService", new PoiService("http://127.0.0.1:8000"));
 
@@ -18,6 +19,7 @@ import Create from "./pages/Create.svelte";
     "/pois": Pois,
     "/logout": Main,
     "/create": Create,
+    "/signup": Signup
   }
 </script>
 
