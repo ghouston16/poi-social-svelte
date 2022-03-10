@@ -57,14 +57,14 @@ export class PoiService {
       //console.log(response.status);
      // console.log(response.data);
       if (response.data.status = 200) {
-        console.log(response.status);
-        console.log(response.data);
+          console.log(response.status);
+      //  console.log(response.data);
         user.set({
           email: email,
           token: response.data.access_token
         });
         localStorage.poi = JSON.stringify(response.data.access_token)
-    
+        //console.log(localStorage.user)
         return true;
       }
         else 
@@ -94,14 +94,24 @@ export class PoiService {
   
 
   async createPoi(title, description, category, lat, lng) {
+    let creator;
     try {
-      // const creator = 
+      const res = await axios.get(this.baseUrl + "/users");
+      this.userList = res.data
+     // console.log(this.userList)
+      for (let i=0;i < this.userList.length; i++ ){
+        if (this.userList[i].email == localStorage.user){
+           creator = this.userList[i].id
+         //  console.log(creator)
+        }
+      }
       const poi = {
         title: title,
         description: description,
         category: category,
         lat: lat,
         lng: lng,
+        creator: creator
       };
 
       const response = await axios.post(this.baseUrl + "/pois", poi);
@@ -121,7 +131,7 @@ export class PoiService {
       return false;
     }
   }
-  async updatePoi(title, description, category, lat, lng, id) {
+  async updatePoi(title, description, category, lat, lng, id, creator) {
     try {
       const poiDetails = {
         title: title,
@@ -129,7 +139,8 @@ export class PoiService {
         category: category,
         lat: lat,
         lng: lng,
-        id: id
+        id: id,
+        creator: creator
       };
 
       console.log(poiDetails);

@@ -8,9 +8,11 @@
     let lat = $poi.lat;
     let lng = $poi.lng;
     let category = $poi.category;
+    let id = $poi.id
     let message = "";
     let categoryList = [];
     let selectedCategory = 0;
+
     const poiService = getContext("PoiService");
 
     onMount(async () => {
@@ -27,7 +29,8 @@
             category,
             lat,
             lng,
-            $poi.id
+            id,
+            $poi.creator
         );
         
         if (success) {

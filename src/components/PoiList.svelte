@@ -9,6 +9,7 @@ import { poi } from "../stores"
 
   onMount(async () => {
     poiList = await poiService.getPois();
+    console.log(poiList)
   });
 
   async function deletePoi(poiId) {
@@ -22,12 +23,10 @@ import { poi } from "../stores"
     }
   }
   async function updatePoi(poiId) {
-    console.log(poiId); 
-  const candidatePoi = await poiService.getPoiById(poiId);
-  poi.set(candidatePoi)
   console.log(poi)
   let success= await poiService.getPoiById(poiId)
   if (success){
+    poi.set(success)
     push('/update')
     //console.log(success.data)
     //poi.set(success.data)
@@ -35,8 +34,12 @@ import { poi } from "../stores"
   }
 
   async function viewPoi(poiId) {
-    let candidatePoi = await poiService.getPoiById(poiId);
+    const candidatePoi = await poiService.getPoiById(poiId);
+    if (candidatePoi){
     console.log(candidatePoi);
+    poi.set(candidatePoi)
+    push("/view")
+    }
   }
 </script>
 

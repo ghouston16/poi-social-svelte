@@ -57,4 +57,5 @@ export const poi = writable({
   category: "",
   lat: "",
   lng: "",
+  creator: ""
 });
