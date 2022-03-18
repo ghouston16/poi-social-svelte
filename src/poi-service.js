@@ -7,6 +7,7 @@ export class PoiService {
   userList = [];
   poiList = [];
   baseUrl = "";
+
   
 
   // Encoded form data needed to match api 
@@ -165,4 +166,84 @@ export class PoiService {
     }
   }
   
+  async createComment(comment_string) {
+    let creator;
+    let poi_id = localStorage.poi.id;
+    try {
+      const res = await axios.get(this.baseUrl + "/users");
+      this.userList = res.data
+     // console.log(this.userList)
+      for (let i=0;i < this.userList.length; i++ ){
+        if (this.userList[i].email == localStorage.user){
+           creator = this.userList[i].id
+         //  console.log(creator)
+        }
+      }
+      const comment = {
+        comment: comment_string,
+        creator: creator,
+        poi_id: poi_id
+      };
+
+      const response = await axios.post(this.baseUrl + `/pois/${poi_id}/comments`, comment);
+      if (response.status == 201){
+        push("/pois");
+      }
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async deleteComment(poi_id, id) {
+    try {
+      const response = await axios.delete(`${this.baseUrl}/pois/${poi_id}/comments/${id}`);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async updateComment(comment, id ) {
+    let creator;
+    let poi_id = localStorage.poi.id;
+    try {
+        const res = await axios.get(this.baseUrl + "/users");
+        this.userList = res.data
+       // console.log(this.userList)
+        for (let i=0;i < this.userList.length; i++ ){
+          if (this.userList[i].email == localStorage.user){
+             creator = this.userList[i].id
+           //  console.log(creator)
+          }
+        }
+      const commentDetails = {
+        id: id,
+        comment: comment,
+        creator: creator,
+        poi_id: poi_id
+      };
+
+      console.log(commentDetails);
+      const response = await axios.put(this.baseUrl + "/pois/" + poi_id + "comments/" + id, commentDetails);
+      const newPoi = await response.data;
+      console.log(response);
+      poi.set(newPoi);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+  async getPoiComments(poi_id) {
+    try {
+      const response = await axios.get(`${this.baseUrl}/pois/${poi_id}/comments`)
+      //console.log(response)
+      const commentList = await response.data;
+      //console.log(poi)
+      return commentList;
+    } catch (error) {
+      return null;
+    }
+  }
+  
 }
+
