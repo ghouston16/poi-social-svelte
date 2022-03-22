@@ -1,6 +1,6 @@
 import axios from "axios";
 import { push } from "svelte-spa-router";
-import { intros } from "svelte/internal";
+//import { intros } from "svelte/internal";
 import { user, poi } from "./stores";
 
 export class PoiService {
@@ -166,17 +166,17 @@ export class PoiService {
     }
   }
   
-  async createComment(comment_string) {
+  async createComment(comment_string, poi_id, user_email) {
     let creator;
-    let poi_id = localStorage.poi.id;
+    //let poi_id = localStorage.poi.id;
     try {
       const res = await axios.get(this.baseUrl + "/users");
       this.userList = res.data
      // console.log(this.userList)
       for (let i=0;i < this.userList.length; i++ ){
-        if (this.userList[i].email == localStorage.user){
+        if (this.userList[i].email == user_email){
            creator = this.userList[i].id
-         //  console.log(creator)
+           console.log(creator)
         }
       }
       const comment = {
@@ -184,10 +184,10 @@ export class PoiService {
         creator: creator,
         poi_id: poi_id
       };
-
+      console.log(comment)
       const response = await axios.post(this.baseUrl + `/pois/${poi_id}/comments`, comment);
       if (response.status == 201){
-        push("/pois");
+        return true
       }
     } catch (error) {
       return false;
