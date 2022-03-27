@@ -1,12 +1,13 @@
 import axios from "axios";
 import { push } from "svelte-spa-router";
-import { intros } from "svelte/internal";
-import { user, poi } from "./stores";
+//import { intros } from "svelte/internal";
+import { user, poi, comment } from "./stores";
 
 export class PoiService {
   userList = [];
   poiList = [];
   baseUrl = "";
+
   
 
   // Encoded form data needed to match api 
@@ -15,8 +16,8 @@ export class PoiService {
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
-    if (localStorage.poi) {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + JSON.parse(localStorage.poi);
+    if (localStorage.jwt) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + JSON.parse(localStorage.jwt);
     }
   }
 
@@ -57,14 +58,14 @@ export class PoiService {
       //console.log(response.status);
      // console.log(response.data);
       if (response.data.status = 200) {
-        console.log(response.status);
-        console.log(response.data);
+          console.log(response.status);
+      //  console.log(response.data);
         user.set({
           email: email,
           token: response.data.access_token
         });
-        localStorage.poi = JSON.stringify(response.data.access_token)
-    
+        localStorage.jwt = JSON.stringify(response.data.access_token)
+        //console.log(localStorage.user)
         return true;
       }
         else 
@@ -94,14 +95,24 @@ export class PoiService {
   
 
   async createPoi(title, description, category, lat, lng) {
+    let creator;
     try {
-      // const creator = 
+      const res = await axios.get(this.baseUrl + "/users");
+      this.userList = res.data
+     // console.log(this.userList)
+      for (let i=0;i < this.userList.length; i++ ){
+        if (this.userList[i].email == localStorage.user){
+           creator = this.userList[i].id
+         //  console.log(creator)
+        }
+      }
       const poi = {
         title: title,
         description: description,
         category: category,
         lat: lat,
         lng: lng,
+        creator: creator
       };
 
       const response = await axios.post(this.baseUrl + "/pois", poi);
@@ -121,7 +132,7 @@ export class PoiService {
       return false;
     }
   }
-  async updatePoi(title, description, category, lat, lng, id) {
+  async updatePoi(title, description, category, lat, lng, id, creator) {
     try {
       const poiDetails = {
         title: title,
@@ -129,7 +140,8 @@ export class PoiService {
         category: category,
         lat: lat,
         lng: lng,
-        id: id
+        id: id,
+        creator: creator
       };
 
       console.log(poiDetails);
@@ -154,4 +166,84 @@ export class PoiService {
     }
   }
   
+  async createComment(comment_string, poi_id, user_email) {
+    let creator;
+    //let poi_id = localStorage.jwt.id;
+    try {
+      const res = await axios.get(this.baseUrl + "/users");
+      this.userList = res.data
+     // console.log(this.userList)
+      for (let i=0;i < this.userList.length; i++ ){
+        if (this.userList[i].email == user_email){
+           creator = this.userList[i].id
+           console.log(creator)
+        }
+      }
+      const comment = {
+        comment: comment_string,
+        creator: creator,
+        poi_id: poi_id
+      };
+      console.log(comment)
+      const response = await axios.post(this.baseUrl + `/pois/${poi_id}/comments`, comment);
+      if (response.status == 201){
+        return true
+      }
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async deleteComment(poi_id, id) {
+    try {
+      const response = await axios.delete(`${this.baseUrl}/pois/${poi_id}/comments/${id}`);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async updateComment(comment_string, id, poi_id ) {
+    let creator;
+    //let poi_id = localStorage.jwt.i
+    try {
+        const res = await axios.get(this.baseUrl + "/users");
+        this.userList = res.data
+       // console.log(this.userList)
+        for (let i=0;i < this.userList.length; i++ ){
+          if (this.userList[i].email == localStorage.user){
+             creator = this.userList[i].id
+           //  console.log(creator)
+          }
+        }
+      const commentDetails = {
+        id: id,
+        comment: comment_string,
+        creator: creator,
+        poi_id: poi_id
+      };
+
+      console.log(commentDetails);
+      const response = await axios.put(this.baseUrl + "/pois/" + poi_id + "comments/" + id, commentDetails);
+      const newComment = await response.data;
+      console.log(response);
+      comment.set(newComment);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+  async getPoiComments(poi_id) {
+    try {
+      const response = await axios.get(`${this.baseUrl}/pois/${poi_id}/comments`)
+      //console.log(response)
+      const commentList = await response.data;
+      //console.log(poi)
+      return commentList;
+    } catch (error) {
+      return null;
+    }
+  }
+  
 }
+

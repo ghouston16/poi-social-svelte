@@ -57,4 +57,11 @@ export const poi = writable({
   category: "",
   lat: "",
   lng: "",
+  creator: ""
+});
+export const comment = writable({
+  id: "",
+  comment: "",
+  creator: "",
+  poi_id: ""
 });
