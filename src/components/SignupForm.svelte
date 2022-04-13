@@ -29,7 +29,7 @@
         <input bind:value={email} class="uk-input uk-form-large" type="text" name="email">
       </div>
       <div class="uk-margin">
-        <label class="uk-form-label">Password</label>
+        <label class="uk-label">Password</label>
         <div class="uk-inline uk-width-1-1">
           <span class="uk-form-icon" uk-icon="icon: lock"></span>
           <input bind:value={password} class="uk-input uk-form-large" type="password" name="password">

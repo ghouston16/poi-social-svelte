@@ -24,7 +24,7 @@
 
   <form on:submit|preventDefault={login}>
     <div class="uk-margin uk-text-left">
-      <label class="uk-form-label">Email</label>
+      <h3 class="uk-label">Email</h3>
       <div class="uk-inline uk-width-1-1">
         <span class="uk-form-icon" uk-icon="icon: mail"></span>
         <input bind:value={email} class="uk-input uk-form-large" type="text" name="email">

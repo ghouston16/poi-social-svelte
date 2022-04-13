@@ -1,7 +1,7 @@
 import axios from "axios";
 import { push } from "svelte-spa-router";
 //import { intros } from "svelte/internal";
-import { user, poi } from "./stores";
+import { user, poi, comment } from "./stores";
 
 export class PoiService {
   userList = [];
@@ -16,8 +16,8 @@ export class PoiService {
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
-    if (localStorage.poi) {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + JSON.parse(localStorage.poi);
+    if (localStorage.jwt) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + JSON.parse(localStorage.jwt);
     }
   }
 
@@ -64,7 +64,7 @@ export class PoiService {
           email: email,
           token: response.data.access_token
         });
-        localStorage.poi = JSON.stringify(response.data.access_token)
+        localStorage.jwt = JSON.stringify(response.data.access_token)
         //console.log(localStorage.user)
         return true;
       }
@@ -168,7 +168,7 @@ export class PoiService {
   
   async createComment(comment_string, poi_id, user_email) {
     let creator;
-    //let poi_id = localStorage.poi.id;
+    //let poi_id = localStorage.jwt.id;
     try {
       const res = await axios.get(this.baseUrl + "/users");
       this.userList = res.data
@@ -203,9 +203,9 @@ export class PoiService {
     }
   }
 
-  async updateComment(comment, id ) {
+  async updateComment(comment_string, id, poi_id ) {
     let creator;
-    let poi_id = localStorage.poi.id;
+    //let poi_id = localStorage.jwt.i
     try {
         const res = await axios.get(this.baseUrl + "/users");
         this.userList = res.data
@@ -218,16 +218,16 @@ export class PoiService {
         }
       const commentDetails = {
         id: id,
-        comment: comment,
+        comment: comment_string,
         creator: creator,
         poi_id: poi_id
       };
 
       console.log(commentDetails);
       const response = await axios.put(this.baseUrl + "/pois/" + poi_id + "comments/" + id, commentDetails);
-      const newPoi = await response.data;
+      const newComment = await response.data;
       console.log(response);
-      poi.set(newPoi);
+      comment.set(newComment);
       return true;
     } catch (error) {
       return false;

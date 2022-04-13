@@ -2,13 +2,13 @@
     import { getContext, onMount } from "svelte";
     import { push } from "svelte-spa-router";
     import { poi, user } from "../stores";
-    import AddCommentForm from "./addCommentForm.svelte";
+    //import AddCommentForm from "./addCommentForm.svelte";
 
     const poiService = getContext("PoiService");
     let commentList = [];
     let message = "";
     let comment = "";
-    let errorMessage = ""
+    let errorMessage = "";
 
     //let commentsPoi = JSON.parse(localStorage.poi);
 
@@ -19,12 +19,16 @@
     });
 
     async function createComment() {
-        const success = await poiService.createComment(comment, $poi.id, $user.email);
+        const success = await poiService.createComment(
+            comment,
+            $poi.id,
+            $user.email
+        );
 
         if (success) {
-            poi.set($poi)
+            poi.set($poi);
             commentList = await poiService.getPoiComments($poi.id);
-            return commentList
+            return commentList;
         } else {
             errorMessage = "Poi not completed - some error occurred";
         }
@@ -32,10 +36,10 @@
 
     async function deleteComment(commentId) {
         //console.log(commentId);
-        let success = await poiService.deleteComment($poi.id,commentId);
-       // console.log(success);
+        let success = await poiService.deleteComment($poi.id, commentId);
+        // console.log(success);
         if (success) {
-            poi.set($poi)
+            poi.set($poi);
             commentList = await poiService.getPoiComments($poi.id);
             //push('/view')
         } else {
@@ -43,13 +47,23 @@
         }
     }
     // TODO: fix this method
-    async function updateComment(commentsId) {
-        let success = await poiService.getPoiById(commentsId);
+    async function updateComment(comment_string, commentsId, poi_id) {
+        let success = await poiService.getCommentById(commentsId);
         if (success) {
             poi.set(success);
-            push("/update");
-            //console.log(success.data)
-            //poi.set(success.data)
+            let response = await poiService.updateComment(
+                comment_string,
+                commentsId,
+                poi_id
+            );
+            if (response.data.comment == comment_string) {
+                push("/view");
+                //push("/update");
+                //console.log(success.data)
+                //poi.set(success.data)
+            }
+        } else {
+            message = "Error Trying to save settings";
         }
     }
     //TODO: fix/remove this route
@@ -77,10 +91,10 @@
                         {comment.comment}
                     </td>
                     <td>
-                        {comment.owner.email} 
+                        {comment.owner.email}
                     </td>
                     <td>
-                        {comment.created_at} 
+                        {comment.created_at}
                     </td>
                     <td>
                         <icon
@@ -104,7 +118,10 @@
     </table>
 </div>
 
-<form on:submit|preventDefault={createComment} class="uk-form-stacked uk-text-left">
+<form
+    on:submit|preventDefault={createComment}
+    class="uk-form-stacked uk-text-left"
+>
     <h3 class="uk-heading-divider uk-text-center">Leave a Comment...</h3>
     <div class="uk-grid uk-grid-stack">
         <div class="uk-width-1@m">
@@ -123,7 +140,7 @@
         </div>
         <div class=" uk-width-1@m">
             <div class="uk-margin">
-                <div></div>
+                <div />
                 <button
                     class="submit uk-button uk-button-primary uk-button-small"
                     >Add</button
@@ -137,4 +154,3 @@
         {/if}
     </div>
 </form>
-

@@ -59,3 +59,9 @@ export const poi = writable({
   lng: "",
   creator: ""
 });
+export const comment = writable({
+  id: "",
+  comment: "",
+  creator: "",
+  poi_id: ""
+});

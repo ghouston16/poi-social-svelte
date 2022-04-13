@@ -4,6 +4,8 @@
    import {getContext, onMount} from 'svelte'
    import {push} from 'svelte-spa-router'
    import {poi} from '../stores'
+   import spike from "/src/assets/spikeisland2.jpg"
+   //import App from 'src/App.svelte';
    const poiService = getContext("PoiService");
    let message = "";
    //import {push} from 'svelte-spa-router'
@@ -43,6 +45,9 @@
 <div class="uk-margin uk-width-1xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
    <h3 class="uk-heading-divider">
        {$poi.title} </h3>
+       <div class="uk-image-center-width-1-2@m ">
+        <img width="300" src="{spike}" alt="homer">   <img width="300" src="{spike}" alt="homer">  <img width="300" src="{spike}" alt="homer">
+      </div>
    <table class="uk-table">
        <thead>
        <th>Name</th>
