@@ -12,7 +12,7 @@
   import UpdatePoi from "./pages/UpdatePoi.svelte";
   import PoiView from "./pages/PoiView.svelte";
 
-  setContext("PoiService", new PoiService("https://python-poi-api.herokuapp.com"));// http://127.0.0.1:8000
+  setContext("PoiService", new PoiService("https://poi-api-staging.herokuapp.com"));// http://127.0.0.1:8000
 
   let routes = {
     "/": Main,

@@ -94,27 +94,27 @@ export class PoiService {
     }
   
 
-  async createPoi(title, description, category, lat, lng) {
-    let creator;
+  async createPoi(title, description, category, lat, lng, user_email) {
+    let creator = 0;
     try {
       const res = await axios.get(this.baseUrl + "/users");
       this.userList = res.data
      // console.log(this.userList)
       for (let i=0;i < this.userList.length; i++ ){
-        if (this.userList[i].email == localStorage.user){
+        if (this.userList[i].email == user_email){
            creator = this.userList[i].id
-         //  console.log(creator)
+           console.log(creator)
         }
       }
       const poi = {
         title: title,
         description: description,
-        category: category,
         lat: lat,
         lng: lng,
-        creator: creator
+        creator: creator,
+        category: category,
       };
-
+      console.log(poi);
       const response = await axios.post(this.baseUrl + "/pois", poi);
       if (response.status == 201){
         push("/pois");
@@ -240,6 +240,18 @@ export class PoiService {
       const commentList = await response.data;
       //console.log(poi)
       return commentList;
+    } catch (error) {
+      return null;
+    }
+  }
+  async getCommentById(poi_id, id) {
+    try {
+
+      const response = await axios.get(`${this.baseUrl}/pois/${poi_id}/comments/${id}`)
+      //console.log(response)
+      const comment = await response.data;
+      //console.log(poi)
+      return comment;
     } catch (error) {
       return null;
     }

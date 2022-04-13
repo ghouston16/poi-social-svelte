@@ -1,5 +1,6 @@
 <script lang="ts">
     import 'leaflet/dist/leaflet.css';
+import { user } from '../stores';
     import { onMount, getContext } from "svelte";
     import {push} from 'svelte-spa-router';
     const poiService = getContext("PoiService");
@@ -23,7 +24,7 @@
     onMount(async () => {
     });
     async function createPoi() {
-        const success = await poiService.createPoi(title, description,category,lat,lng)
+        const success = await poiService.createPoi(title, description,category,lat,lng, $user)
         
         if (success) {
             push('/pois')
