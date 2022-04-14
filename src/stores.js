@@ -8,10 +8,10 @@ export const mainBar = [{
   link: "/#/create",
 }, 
 {
-  title: "Users",
+  title: "Settings",
   icon: "fas fa-user fa-2x",
   colour: "color:rgb(14, 168, 160)",
-  link: "/#/users",
+  link: "/#/settings",
 },
 {
   title: "Pois",

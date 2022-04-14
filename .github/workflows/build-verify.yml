@@ -1,0 +1,26 @@
+name: Build and Test Svelte
+
+on:
+  push:
+    branches:
+      - develop
+      - master 
+jobs:
+  build:
+    environment:
+      name: build
+    runs-on: ubuntu-latest
+    steps:
+        - name: pulling git repo
+          uses: actions/checkout@v2
+        - name: Set up Node.js version
+          uses: actions/setup-node@v1
+          with:
+            node-version: '12.x'
+
+        - name: Install Dependencies
+          run: npm install
+        - name: Build Application
+          run: npm run build
+        - name: Run Tests
+          run: npm run test --if-present

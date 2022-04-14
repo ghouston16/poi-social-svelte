@@ -48,7 +48,7 @@
     }
     // TODO: fix this method
     async function updateComment(comment_string, commentsId, poi_id) {
-        let success = await poiService.getCommentById(commentsId);
+        let success = await poiService.getCommentById(poi_id, commentsId);
         if (success) {
             poi.set(success);
             let response = await poiService.updateComment(
