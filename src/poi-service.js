@@ -74,11 +74,22 @@ export class PoiService {
       return false;
     }
   }
+
+  async logout() {
+    user.set({
+      email: "",
+      token: "",
+
+    });
+    axios.defaults.headers.common["Authorization"] = "";
+    localStorage.jwt = null;
+    return true;
+  }
+
   
     // Sign Up
     async signup(email, password) {
       try {
-        const storedPassword = password;
         const userDetails = {
           email: email,
           password:  password //hash,
@@ -86,7 +97,7 @@ export class PoiService {
         console.log(userDetails);
         const response = await axios.post(this.baseUrl + "/users", userDetails);
         const newUser = await response.data;
-        user.set(newUser);
+        //user.set(newUser);
         return true;
       } catch (error) {
         return false;
@@ -257,5 +268,29 @@ export class PoiService {
     }
   }
   
+  async updateSettings(email, password, user) {
+    try {
+        this.userList = await this.getUsers();
+        let userId = 0;
+        let userPassword = ""
+        for (let i=0;i < this.userList.length; i++ ){
+          if (this.userList[i].email == user){
+             userId = this.userList[i].id;
+        }
+        }
+          const userDetails = {
+            email: email,
+            password:  password //hash,
+          };
+          console.log(userDetails);
+          const response = await axios.put(`${this.baseUrl}/users/${userId}`, userDetails);
+          const newUser = await response.data;
+          console.log(response.status);
+        //  user.set(newUser);
+          return true;
+        } catch (error) {
+          return false;
+        }
+      }
 }
 

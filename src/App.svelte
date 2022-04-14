@@ -11,19 +11,21 @@
   import Signup from "./pages/Signup.svelte";
   import UpdatePoi from "./pages/UpdatePoi.svelte";
   import PoiView from "./pages/PoiView.svelte";
+import Settings from "./pages/Settings.svelte";
 
-  setContext("PoiService", new PoiService("https://poi-api-staging.herokuapp.com"));// http://127.0.0.1:8000
+  setContext("PoiService", new PoiService("http://127.0.0.1:8000")); //https://poi-api-staging.herokuapp.com"));
 
   let routes = {
     "/": Main,
     "/login": Login,
-    "/users": Users,
+   // "/users": Users,
     "/pois": Pois,
     "/logout": Main,
     "/create": Create,
     "/signup": Signup,
     "/update": UpdatePoi,
     "/view": PoiView,
+    "/settings": Settings
   };
 </script>
 
