@@ -23,13 +23,13 @@
   <form on:submit|preventDefault={signup}>
     <div class="uk-margin uk-text-left">
       <div class="uk-margin">
-      <label class="uk-form-label">Email</label>
+      <h3 class="uk-form-label">Email</h3>
       <div class="uk-inline uk-width-1-1">
         <span class="uk-form-icon" uk-icon="icon: mail"></span>
         <input bind:value={email} class="uk-input uk-form-large" type="text" name="email">
       </div>
       <div class="uk-margin">
-        <label class="uk-label">Password</label>
+        <h3 class="uk-label">Password</h3>
         <div class="uk-inline uk-width-1-1">
           <span class="uk-form-icon" uk-icon="icon: lock"></span>
           <input bind:value={password} class="uk-input uk-form-large" type="password" name="password">
