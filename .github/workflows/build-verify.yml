@@ -26,6 +26,7 @@ jobs:
   test:
     environment: 
       name: testing
+    needs: build
     runs-on: ubuntu-latest
     steps:
         - name: pulling git repo
