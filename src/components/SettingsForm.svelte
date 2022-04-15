@@ -39,14 +39,14 @@
   <form on:submit|preventDefault={save}>
     <div class="uk-margin uk-text-left">
       <div class="uk-margin">
-        <label class="uk-form-label">Email</label>
+        <h3 class="uk-form-label">Email</h3>
         <div class="uk-inline uk-width-1-1">
           <div class="uk-form-controls">
             <input class="uk-input" id="form-stacked-text" type="text" value={email} disabled/>
           </div>
         </div>
         <div class="uk-margin">
-          <label class="uk-label">Password</label>
+          <h3 class="uk-label">Password</h3>
           <div class="uk-inline uk-width-1-1">
             <span class="uk-form-icon" uk-icon="icon: lock"></span>
             <input bind:value={password} class="uk-input uk-form-large" type="password" name="password">

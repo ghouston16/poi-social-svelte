@@ -53,7 +53,7 @@
 <form on:submit|preventDefault={save}>
     <div class="uk-margin uk-text-left">
         <div class="uk-margin">
-            <label class="uk-form-label">Name</label>
+            <h3 class="uk-form-label">Name</h3>
             <div class="uk-inline uk-width-1-1">
                 <span class="uk-form-icon" uk-icon="icon: user" />
                 <input
@@ -66,7 +66,7 @@
             </div>
         </div>
         <div class="uk-margin">
-            <label class="uk-form-label">Description</label>
+            <h3 class="uk-form-label">Description</h3>
             <div class="uk-inline uk-width-1-1">
                 <span class="uk-form-icon" uk-icon="icon: user" />
                 <input
@@ -78,7 +78,7 @@
                 />
             </div>
         </div>
-        <label class="uk-form-label">Latitude</label>
+        <h3 class="uk-form-label">Latitude</h3>
         <div class="uk-inline uk-width-1-1">
             <span class="uk-form-icon" uk-icon="icon: location" />
             <input
@@ -90,7 +90,7 @@
             />
         </div>
         <div class="uk-margin">
-            <label class="uk-form-label">Longitude</label>
+            <h3 class="uk-form-label">Longitude</h3>
             <div class="uk-inline uk-width-1-1">
                 <span class="uk-form-icon" uk-icon="icon: location" />
                 <input
@@ -106,14 +106,14 @@
                     <div class="uk-margin uk-text-left">
                         <div class="uk-form-label">Select Category</div>
                         <div class="uk-form-controls ">
-                            <label>
+                            <h3>
                                 <input
                                     bind:value={category}
                                     class="uk-input"
                                     type="string"
                                     name="category"
                                 />
-                            </label>
+                            </h3>
                         </div>
                     </div>
                 </div>
