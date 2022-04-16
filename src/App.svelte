@@ -1,7 +1,6 @@
 <script>
   import { setContext } from "svelte";
   import { PoiService } from "./poi-service";
-  import Users from "./pages/Users.svelte";
   import Pois from "./pages/Pois.svelte";
   import Navigator from "./components/Navigator.svelte";
   import Router from "svelte-spa-router";
