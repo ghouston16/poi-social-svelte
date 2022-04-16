@@ -15,8 +15,8 @@
 
   setContext(
     "PoiService",
-    new PoiService("https://poi-api-staging.herokuapp.com")
-  ); //https://poi-api-staging.herokuapp.com"));
+    new PoiService("https://python-poi-api.herokuapp.com")
+  );
 
   let routes = {
     "/": Main,
@@ -33,7 +33,6 @@
 </script>
 
 <div class="uk-container">
-  <h1>POI Client Application</h1>
   <Navigator />
   <Router {routes} />
 </div>
