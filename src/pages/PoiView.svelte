@@ -16,7 +16,7 @@
      console.log(showPoi);
    });
 
-
+   // comment for demo
    async function deletePoi(poiId) {
    console.log(poiId); 
    //poiawait poiService.getPoiById(poiId)
